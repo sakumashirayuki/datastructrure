@@ -1,0 +1,46 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int k;
+	int a[100000];
+
+	cin >> k;
+	for (int i = 0; i < k; i++)
+	{
+		cin >> a[i];
+	}
+
+	int maxSum = 0;
+	int head, tail;
+	head = 0;
+	tail = k - 1;
+
+	for (int i = 0; i < k; i++)
+	{
+		int ThisSum = 0;
+		for (int j = i; j < k; j++)
+		{
+			ThisSum += a[j];
+			if (ThisSum > maxSum)
+			{
+				maxSum = ThisSum;
+				head = i;
+				tail = j;
+			}
+			else if ((ThisSum == maxSum)&&(ThisSum==0))
+			{
+				head = i;
+				tail = j;
+			}
+				
+		}
+	}
+
+	cout << maxSum <<" "<<a[head]<<" "<<a[tail]<< endl;
+
+	system("pause");
+	return 0;
+}
