@@ -115,8 +115,8 @@ void inorderNonRecur(TreeNode* root)
 		T = T->right;
 	}
 }
-//非递归后序遍历
-void postorderNonRecur(TreeNode* root) {
+//非递归后序遍历1
+void postorderNonRecur1(TreeNode* root) {
 	TreeNode* invertRoot = invertTree(root);
 	TreeNode* T = invertRoot;
 	stack<TreeNode*> s;
@@ -137,6 +137,50 @@ void postorderNonRecur(TreeNode* root) {
 	{
 		cout << sout.top() << " ";
 		sout.pop();
+	}
+}
+//非递归后序遍历2
+void postorderNonRecur2(TreeNode* root)
+{
+	TreeNode* T = root;
+	TreeNode* tempRight = nullptr;
+	stack<TreeNode*> s;
+	while (T != nullptr || !s.empty())
+	{
+		while (T != nullptr)
+		{
+			s.push(T);
+			T = T->left;
+		}
+		T = s.top();
+		if (T->right == nullptr || T->right == tempRight)//如果右子树不存在或者右子树已被访问
+		{
+			cout << T->val << " ";
+			tempRight = T;
+			s.pop();
+			T = nullptr;
+		}
+		else
+		{
+			T = T->right;
+			s.push(T);
+			T = T->left;
+		}
+	}
+}
+//层序遍历
+void levelorder(TreeNode* root)
+{
+	queue<TreeNode*> q;
+	TreeNode* T;
+	q.push(root);
+	while (!q.empty())
+	{
+		T = q.front();
+		q.pop();
+		cout << T->val << " ";
+		if (T->left) q.push(T->left);
+		if (T->right) q.push(T->right);
 	}
 }
 #endif //  TREE_H
