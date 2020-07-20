@@ -183,4 +183,57 @@ void levelorder(TreeNode* root)
 		if (T->right) q.push(T->right);
 	}
 }
+/*二叉搜索树 binary searching tree*/
+class BST {
+public:
+	BST() :root(NULL) {}
+	void buildBST(vector<int> nums);
+	void printBST();
+
+private:
+	TreeNode* root;
+	void insert(TreeNode* &root, int x);//第一个参数为引用
+	void inorderRecur(TreeNode* root);//递归中序遍历
+};
+
+void BST::insert(TreeNode* &node, int x)
+{
+	if (node == NULL)
+	{
+		node = new TreeNode(x);
+	}
+	else
+	{
+		if (x < node->val)//左子树递归
+		{
+			insert(node->left, x);
+		}
+		else//右子树递归
+		{
+			insert(node->right, x);
+		}
+	}
+}
+
+void BST::buildBST(vector<int> nums)
+{
+	for (vector<int>::iterator iter = nums.begin(); iter != nums.end(); ++iter)
+	{
+		insert(root, *iter);
+	}
+}
+
+void BST::inorderRecur(TreeNode* root)
+{
+	if (root == NULL)
+		return;
+	inorderRecur(root->left);
+	cout << root->val << " ";
+	inorderRecur(root->right);
+}
+void BST::printBST()
+{
+	inorderRecur(root);
+}
+
 #endif //  TREE_H
